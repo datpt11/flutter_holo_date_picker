@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_holo_date_picker/hex_color.dart';
 
 import '../date_time_formatter.dart';
 import '../date_picker_theme.dart';
@@ -190,7 +191,6 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
         children: <Widget>[
           Positioned(
             child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 7, vertical: 18),
               height: widget.pickerTheme!.pickerHeight,
               decoration:
                   BoxDecoration(color: widget.pickerTheme!.backgroundColor),
@@ -199,7 +199,7 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
                 backgroundColor: widget.pickerTheme!.backgroundColor,
                 scrollController: scrollCtrl,
                 squeeze: 0.95,
-                diameterRatio: 1.5,
+                diameterRatio: 999999999999,
                 itemExtent: widget.pickerTheme!.itemHeight,
                 onSelectedItemChanged: valueChanged,
                 looping: widget.looping,
@@ -218,39 +218,36 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
           ),
           Positioned(
             child: Container(
-                margin: const EdgeInsets.only(top: 63),
+                margin: const EdgeInsets.only(top: 50),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    SizedBox(width: MediaQuery.of(context).size.width * 0.02),
                     Expanded(
                       child: Divider(
                         color: widget.pickerTheme!.dividerColor ??
-                            widget.pickerTheme!.itemTextStyle.color,
+                            HexColor("#F0F0F0"),
                         height: 1,
-                        thickness: 2,
+                        thickness: 1,
                       ),
                     ),
-                    SizedBox(width: MediaQuery.of(context).size.width * 0.02)
+                    // SizedBox(width: MediaQuery.of(context).size.width * 0.02)
                   ],
                 )),
           ),
           Positioned(
             child: Container(
-                margin: const EdgeInsets.only(top: 99),
+                margin: const EdgeInsets.only(top: 110),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    SizedBox(width: MediaQuery.of(context).size.width * 0.02),
                     Expanded(
                       child: Divider(
                         color: widget.pickerTheme!.dividerColor ??
-                            widget.pickerTheme!.itemTextStyle.color,
+                            HexColor("#F0F0F0"),
                         height: 1,
-                        thickness: 2,
+                        thickness: 1,
                       ),
                     ),
-                    SizedBox(width: MediaQuery.of(context).size.width * 0.02),
                   ],
                 )),
           ),

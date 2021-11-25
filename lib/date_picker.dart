@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_holo_date_picker/hex_color.dart';
+import 'package:flutter_holo_date_picker/widget/dialog_custom.dart';
 
 import 'date_picker_theme.dart';
 import 'date_picker_constants.dart';
@@ -103,27 +105,11 @@ class DatePicker {
     String? titleText,
     String? confirmText,
     String? cancelText,
+    Function(DateTime? _selectedDate)? onConfirm,
     bool looping: false,
     bool reverse: false,
   }) {
     DateTime? _selectedDate = initialDate;
-    final List<Widget> listButtonActions = [
-      TextButton(
-        style: TextButton.styleFrom(primary: textColor),
-        child: Text(confirmText ?? "OK"),
-        onPressed: () {
-          Navigator.pop(context, _selectedDate);
-        },
-      ),
-      TextButton(
-        style: TextButton.styleFrom(primary: textColor),
-        child: Text(cancelText ?? "Cancel"),
-        onPressed: () {
-          Navigator.pop(context);
-        },
-      )
-    ];
-
     // handle the range of datetime
     if (firstDate == null) {
       firstDate = DateTime.parse(DATE_PICKER_MIN_DATETIME);
@@ -145,39 +131,42 @@ class DatePicker {
     if (textColor == null)
       textColor = DateTimePickerTheme.Default.itemTextStyle.color;
 
-    var datePickerDialog = AlertDialog(
-      title: Text(
-        titleText ?? "Select Date",
-        style: TextStyle(color: textColor),
-      ),
-      contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 14),
-      backgroundColor: backgroundColor,
-      content: Container(
-        width: 300,
-        child: DatePickerWidget(
-          firstDate: firstDate,
-          lastDate: lastDate,
-          initialDate: initialDate,
-          dateFormat: dateFormat,
-          locale: locale,
-          pickerTheme: DateTimePickerTheme(
-            backgroundColor: backgroundColor,
-            itemTextStyle: itemTextStyle ?? TextStyle(color: textColor),
-          ),
-          onChange: ((DateTime date, list) {
-            print(date);
-            _selectedDate = date;
-          }),
-          looping: looping,
-        ),
-      ),
-      actions:
-          reverse ? listButtonActions.reversed.toList() : listButtonActions,
-    );
-    return showDialog(
-        useRootNavigator: false,
+    return showGeneralDialog(
         context: context,
-        builder: (context) => datePickerDialog);
+        barrierDismissible: true,
+        barrierLabel:
+            MaterialLocalizations.of(context).modalBarrierDismissLabel,
+        barrierColor: Colors.black45,
+        transitionDuration: const Duration(milliseconds: 200),
+        pageBuilder: (BuildContext buildContext, Animation animation,
+            Animation secondaryAnimation) {
+          return StatefulBuilder(builder: (context, setState) {
+            return DialogCustom(
+              onOk: () {
+                onConfirm!.call(_selectedDate);
+              },
+              title: "Chọn ngày sinh",
+              radius: BorderRadius.circular(8),
+              height: 296,
+              child: DatePickerWidget(
+                firstDate: firstDate,
+                lastDate: lastDate,
+                initialDate: initialDate,
+                dateFormat: dateFormat,
+                locale: locale,
+                pickerTheme: DateTimePickerTheme(
+                  backgroundColor: backgroundColor ?? HexColor("#ffffff"),
+                  itemTextStyle: itemTextStyle ?? TextStyle(color: textColor),
+                ),
+                onChange: ((DateTime date, list) {
+                  print(date);
+                  _selectedDate = date;
+                }),
+                looping: looping,
+              ),
+            );
+          });
+        });
   }
 }
 

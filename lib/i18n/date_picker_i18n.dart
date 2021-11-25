@@ -46,6 +46,8 @@ part 'strings_nl.dart';
 
 part 'strings_ht.dart';
 
+part 'strings_vi.dart';
+
 abstract class _StringsI18n {
   const _StringsI18n();
 
@@ -134,6 +136,9 @@ enum DateTimePickerLocale {
 
   /// Haitian Creole (HT)
   ht,
+
+  /// Viet Name (VN)
+  vi,
 }
 
 /// Default value of date locale
@@ -164,6 +169,7 @@ const Map<DateTimePickerLocale, _StringsI18n> datePickerI18n = {
   DateTimePickerLocale.th: const _StringsTh(),
   DateTimePickerLocale.lt: const _StringsLt(),
   DateTimePickerLocale.ht: const _StringsHt(),
+  DateTimePickerLocale.vi: const _StringsVn(),
 };
 
 class DatePickerI18n {

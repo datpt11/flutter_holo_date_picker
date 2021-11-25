@@ -12,17 +12,24 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(primarySwatch: Colors.blue),
 //      home: DateTesting(),
       home: Scaffold(
-          appBar: AppBar(
-            title: Text('Holo Datepicker Example'),
-          ),
-          body: MyHomePage(),
+        appBar: AppBar(
+          title: Text('Holo Datepicker Example'),
+        ),
+        body: MyHomePage(),
       ),
       debugShowCheckedModeBanner: false,
     );
   }
 }
 
-class MyHomePage extends StatelessWidget {
+class MyHomePage extends StatefulWidget {
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  DateTime? _selectDate;
+
   Widget build(BuildContext context) {
     return Center(
       child: Column(
@@ -32,21 +39,21 @@ class MyHomePage extends StatelessWidget {
           ElevatedButton(
             child: Text("open picker dialog"),
             onPressed: () async {
-              var datePicked = await DatePicker.showSimpleDatePicker(
-                context,
-                initialDate: DateTime(1994),
-                firstDate: DateTime(1960),
-                lastDate: DateTime(2012),
-                dateFormat: "dd-MMMM-yyyy",
-                locale: DateTimePickerLocale.en_us,
-                looping: true,
-              );
-
-              final snackBar =
-                  SnackBar(content: Text("Date Picked $datePicked"));
-              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              await DatePicker.showSimpleDatePicker(context,
+                  initialDate: DateTime(2021),
+                  firstDate: DateTime(1960),
+                  lastDate: DateTime(2050),
+                  dateFormat: "dd-MMMM-yyyy",
+                  locale: DateTimePickerLocale.vi,
+                  looping: true,
+                  onConfirm: (date) => {
+                        setState(() {
+                          _selectDate = date;
+                        })
+                      });
             },
           ),
+          Text("data $_selectDate"),
           ElevatedButton(
             child: Text("Show picker widget"),
             onPressed: () {
@@ -78,12 +85,11 @@ class _WidgetPageState extends State<WidgetPage> {
             child: DatePickerWidget(
               looping: false, // default is not looping
               firstDate: DateTime.now(), //DateTime(1960),
-            //  lastDate: DateTime(2002, 1, 1),
+              //  lastDate: DateTime(2002, 1, 1),
 //              initialDate: DateTime.now(),// DateTime(1994),
-              dateFormat:
-              "MM-dd(E)",
-           //   "dd-MMMM-yyyy",
-         //     locale: DatePicker.localeFromString('he'),
+              dateFormat: "MM-dd(E)",
+              //   "dd-MMMM-yyyy",
+              //     locale: DatePicker.localeFromString('he'),
               onChange: (DateTime newDate, _) {
                 _selectedDate = newDate;
                 print(_selectedDate);
@@ -92,7 +98,6 @@ class _WidgetPageState extends State<WidgetPage> {
                 itemTextStyle: TextStyle(color: Colors.black, fontSize: 19),
                 dividerColor: Colors.blue,
               ),
-
             ),
           ),
         ),
@@ -100,5 +105,3 @@ class _WidgetPageState extends State<WidgetPage> {
     );
   }
 }
-
-
