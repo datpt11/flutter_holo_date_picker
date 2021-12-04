@@ -108,6 +108,7 @@ class DatePicker {
     Function(DateTime? _selectedDate)? onConfirm,
     bool looping: false,
     bool reverse: false,
+    double magnification: 1,
   }) {
     DateTime? _selectedDate = initialDate;
     // handle the range of datetime
