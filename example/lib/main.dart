@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_holo_date_picker/flutter_holo_date_picker.dart';
+import 'package:flutter_holo_date_picker/hex_color.dart';
 
 void main() => runApp(MyApp());
 
@@ -45,6 +46,11 @@ class _MyHomePageState extends State<MyHomePage> {
                   lastDate: DateTime(2050),
                   dateFormat: "dd-MMMM-yyyy",
                   locale: DateTimePickerLocale.vi,
+                  itemTextStyle: TextStyle(
+                      color: HexColor("#272727"),
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500),
+                  magnification: 1.14285714286,
                   looping: true,
                   onConfirm: (date) => {
                         setState(() {

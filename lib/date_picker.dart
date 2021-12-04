@@ -154,6 +154,7 @@ class DatePicker {
                 lastDate: lastDate,
                 initialDate: initialDate,
                 dateFormat: dateFormat,
+                magnification: magnification,
                 locale: locale,
                 pickerTheme: DateTimePickerTheme(
                   backgroundColor: backgroundColor ?? HexColor("#ffffff"),
