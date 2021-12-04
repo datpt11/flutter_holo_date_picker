@@ -27,6 +27,7 @@ class DatePickerWidget extends StatefulWidget {
     this.onChange,
     this.onConfirm,
     this.looping: false,
+    this.magnification,
   }) : super(key: key) {
     DateTime minTime = firstDate ?? DateTime.parse(DATE_PICKER_MIN_DATETIME);
     DateTime maxTime = lastDate ?? DateTime.parse(DATE_PICKER_MAX_DATETIME);
@@ -41,6 +42,7 @@ class DatePickerWidget extends StatefulWidget {
   final DateVoidCallback? onCancel;
   final DateValueCallback? onChange, onConfirm;
   final bool looping;
+  final double? magnification;
 
   @override
   State<StatefulWidget> createState() =>
@@ -202,6 +204,7 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
                 diameterRatio: 999999999999,
                 itemExtent: widget.pickerTheme!.itemHeight,
                 onSelectedItemChanged: valueChanged,
+                magnification: widget.magnification ?? 1,
                 looping: widget.looping,
                 children: List<Widget>.generate(
                   valueRange.last - valueRange.first + 1,
